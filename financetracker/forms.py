@@ -2,35 +2,30 @@ from django import forms
 from .models import Income, Expense
 
 
-class IncomeForm(forms.ModelForm):
+class IncomeAndExpenseForm(forms.ModelForm):
+    amount = forms.CharField(widget=forms.TextInput(attrs={
+        'class': 'block w-full rounded-md border-0 py-1.5 pl-12 pr-12 text-gray-700 ring-1 ring-inset ring-gray-300',
+        'placeholder': '0.00',
+        'type': 'number',
+        'aria-describedby': 'amount-currency',
+    }))
+
+    description = forms.CharField(widget=forms.TextInput(attrs={
+        'class': 'block w-full rounded-md border-0 py-1.5 pl-7 pr-12 text-gray-700 ring-1 ring-inset ring-gray-300',
+        'placeholder': 'Enter the description',
+    }))
+
     class Meta:
+        abstract = True
+
+
+class IncomeForm(IncomeAndExpenseForm):
+    class Meta(IncomeAndExpenseForm.Meta):
         model = Income
         fields = ('amount', 'description')
 
-    def __init__(self , *args, **kwargs):
-        super(IncomeForm, self).__init__(*args, **kwargs)
-        self.fields['amount'].widget.attrs['placeholder'] = 'Enter the amount'
-        self.fields['description'].widget.attrs['placeholder'] = 'Enter the description'
-        self.fields['amount'].widget.attrs['class'] = ('form-control shadow appearance-none border rounded w-full py-2 '
-                                                       'px-3 text-gray-700 leading-tight focus:outline-none '
-                                                       'focus:shadow-outline')
-        self.fields['description'].widget.attrs['class'] = ('form-control shadow appearance-none border rounded w-full '
-                                                            'py-2 px-3 text-gray-700 leading-tight focus:outline-none'
-                                                            ' focus:shadow-outline')
 
-
-class ExpenseForm(forms.ModelForm):
-    class Meta:
+class ExpenseForm(IncomeAndExpenseForm):
+    class Meta(IncomeAndExpenseForm.Meta):
         model = Expense
         fields = ('amount', 'description')
-
-    def __init__(self , *args, **kwargs):
-        super(ExpenseForm, self).__init__(*args, **kwargs)
-        self.fields['amount'].widget.attrs['placeholder'] = 'Enter the amount'
-        self.fields['description'].widget.attrs['placeholder'] = 'Enter the description'
-        self.fields['amount'].widget.attrs['class'] = ('form-control shadow appearance-none border rounded w-full py-2 '
-                                                       'px-3 text-gray-700 leading-tight focus:outline-none '
-                                                       'focus:shadow-outline')
-        self.fields['description'].widget.attrs['class'] = ('form-control shadow appearance-none border rounded '
-                                                            'w-full py-2 px-3 text-gray-700 leading-tight '
-                                                            'focus:outline-none focus:shadow-outline')

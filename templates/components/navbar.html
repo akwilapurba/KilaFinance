@@ -1,0 +1,19 @@
+{% load static%}
+<nav class="bg-white shadow-lg">
+    <div class="container mx-auto px-6 py-3">
+        <div class="flex justify-between items-center">
+            <a href="" class="text-2xl font-bold text-gray-800">Kila Finance</a>
+                <ul class="flex">
+                    <li class="mr-6">
+                        <a href="" class="text-gray-500 hover:text-gray-800">Add Income</a>
+                    </li>
+                    <li class="mr-6">
+                        <a href="{% url 'add_expense' %}" class="text-gray-500 hover:text-gray-800">Add Expense</a>
+                    </li>
+                    <li class="mr-6">
+                        <a href="" class="text-gray-500 hover:text-gray-800">View Summary</a>
+                    </li>
+                </ul>
+        </div>
+    </div>
+</nav>

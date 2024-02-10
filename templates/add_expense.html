@@ -1,16 +1,13 @@
-{% load static tailwind_tags %}
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Add Expense</title>
-    {% tailwind_css %}
-</head>
-<body class="bg-gray-100 py-8 px-4 sm:px-6 lg:px-8">
-    <h2 class="text-2xl font-semibold mb-4">Add Expense</h2>
-    <form method="post" class="max-w-lg mx-auto">
+{% extends 'layout/base.html' %}
+
+{% block title %}Add Expense{% endblock %}
+
+{% block content %}
+    <h1 class="text-3xl font-bold mb-4 mt-2.5">Add Expense</h1>
+    <form action="{% url 'add_expense' %}" method="post">
         {% csrf_token %}
         <div class="mb-4">
-            <label for="amount" class="block text-gray-700 text-sm font-bold mb-2">Amount</label>
+            <label for="amount" class="block text-gray-700 text-sm font-bold mb-2">Expense Amount</label>
             {{ form.amount }}
         </div>
         <div class="mb-4">
@@ -18,7 +15,7 @@
             {{ form.description }}
         </div>
         <div class="mb-4">
-            <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Add Expense</button>
+            <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Add Expense</button>
         </div>
     </form>
-</body>
+{% endblock %}

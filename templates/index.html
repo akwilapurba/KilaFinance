@@ -1,0 +1,27 @@
+<!-- home.html -->
+{% extends 'layout/base.html' %}
+
+{% block title %}Kila Finance{% endblock %}
+
+{% block content %}
+<body class="bg-gray-100">
+    <div class="container mx-auto py-8">
+        <div class="flex flex-col md:flex-row items-center">
+            <div class="md:w-1/2 md:pr-8">
+                <h1 class="text-4xl font-bold mb-4">Welcome to Kila Finance</h1>
+                <p class="text-lg text-gray-700 mb-8">Kila Finance helps you take control of your finances effortlessly.</p>
+                <ul class="list-disc list-inside mb-8">
+                    <li class="mb-2">Track your income and expenses easily.</li>
+                    <li class="mb-2">Get insights into your spending habits.</li>
+                    <li class="mb-2">Stay within your budget with personalized budgeting tools.</li>
+                    <li class="mb-2">Access your financial data securely from anywhere.</li>
+                </ul>
+                <a href="#" class="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded-full inline-block">Get Started</a>
+            </div>
+            <div class="md:w-1/2 mt-8 md:mt-0">
+                <img src="" alt="Finance Image" class="w-full rounded-lg shadow-md">
+            </div>
+        </div>
+    </div>
+</body>
+{% endblock %}

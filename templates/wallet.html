@@ -1,0 +1,44 @@
+{% extends 'layout/base.html' %}
+
+{% block title %}Add Expense{% endblock %}
+
+{% block content %}
+{% load humanize %}
+<body class="bg-gray-100">
+    <div class="container mx-auto py-8">
+        <h1 class="text-3xl font-bold mb-4">Wallet Summary</h1>
+        <div class="grid grid-cols-2 gap-4">
+            <div class="bg-white p-4 rounded shadow">
+                <h2 class="text-xl font-bold mb-4">Incomes</h2>
+                <ul>
+                    {% for income in incomes %}
+                        <li class="flex justify-between items-center mb-2">
+                            <span>{{ income.description }}</span>
+                            <span>Rp{{ income.amount|intcomma }}</span>
+                        </li>
+                    {% endfor %}
+                </ul>
+                <hr class="my-4">
+                <p class="font-bold">Total Income: Rp{{ total_income|intcomma }}</p>
+            </div>
+            <div class="bg-white p-4 rounded shadow">
+                <h2 class="text-xl font-bold mb-4">Expenses</h2>
+                <ul>
+                    {% for expense in expenses %}
+                        <li class="flex justify-between items-center mb-2">
+                            <span>{{ expense.description }}</span>
+                            <span>Rp{{ expense.amount|intcomma }}</span>
+                        </li>
+                    {% endfor %}
+                </ul>
+                <hr class="my-4">
+                <p class="font-bold">Total Expense: Rp{{ total_expense|intcomma }}</p>
+            </div>
+        </div>
+        <div class="mt-8">
+            <h2 class="text-xl font-bold">Balance</h2>
+            <p class="font-bold text-2xl">Rp{{ balance|intcomma }}</p>
+        </div>
+    </div>
+</body>
+{% endblock %}

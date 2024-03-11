@@ -13,6 +13,8 @@ class IncomeAndExpenseForm(forms.ModelForm):
     }))
 
     description = forms.CharField(widget=forms.TextInput(attrs={
+        'id': 'description',
+        'name': 'description',
         'class': 'block w-full rounded-md border-0 py-1.5 pl-7 pr-12 text-gray-700 ring-1 ring-inset ring-gray-300',
         'placeholder': 'Enter the description',
     }))

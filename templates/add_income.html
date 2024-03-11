@@ -4,7 +4,7 @@
 
 {% block content %}
     <h1 class="text-3xl font-bold mb-4 mt-2.5">Add Income</h1>
-    <form action="{% url 'add_income' %}" method="post">
+    <form id="forms" action="{% url 'add_income' %}" method="post">
         {% csrf_token %}
         <div class="mb-4">
             <label for="amount" class="block text-sm font-medium leading-6 text-gray-900">Amount</label>
@@ -24,6 +24,7 @@
         </div>
         <div class="mb-4">
             <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Add Income</button>
+            <button id="startDictation" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Add Income via Speech</button>
         </div>
     </form>
 {% endblock %}

@@ -1,6 +1,6 @@
 {% extends 'layout/base.html' %}
 
-{% block title %}Add Expense{% endblock %}
+{% block title %}Wallet Summary{% endblock %}
 
 {% block content %}
 {% load humanize %}
@@ -15,6 +15,8 @@
                         <li class="flex justify-between items-center mb-2">
                             <span>{{ income.description }}</span>
                             <span>Rp{{ income.amount|intcomma }}</span>
+                            <!-- Delete button for income -->
+                            <button onclick="deleteIncome('{{ income.id }}')" class="text-red-500 font-bold">Delete</button>
                         </li>
                     {% endfor %}
                 </ul>
@@ -28,6 +30,8 @@
                         <li class="flex justify-between items-center mb-2">
                             <span>{{ expense.description }}</span>
                             <span>Rp{{ expense.amount|intcomma }}</span>
+                            <!-- Delete button for expense -->
+                            <button onclick="deleteExpense('{{ expense.id }}')" class="text-red-500 font-bold">Delete</button>
                         </li>
                     {% endfor %}
                 </ul>
@@ -36,9 +40,56 @@
             </div>
         </div>
         <div class="mt-8">
-            <h2 class="text-xl font-bold">Balance</h2>
+            <h2 class="text-3xl font-bold">Balance</h2>
             <p class="font-bold text-2xl">Rp{{ balance|intcomma }}</p>
         </div>
     </div>
 </body>
+
+<script>
+    // Function to delete income
+    function deleteIncome(incomeId) {
+        if (confirm("Are you sure you want to delete this income?")) {
+            fetch(`/delete-income/${incomeId}/`, {
+                method: 'DELETE',
+                headers: {
+                    'X-CSRFToken': '{{ csrf_token }}'
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    // Remove the deleted income from the DOM
+                    document.getElementById('income_' + incomeId).remove();
+                } else {
+                    console.error('Failed to delete income:', data.error);
+                }
+            })
+            .catch(error => console.error('Error deleting income:', error));
+        }
+    }
+
+    // Function to delete expense
+    function deleteExpense(expenseId) {
+        if (confirm("Are you sure you want to delete this expense?")) {
+            fetch(`/delete-expense/${expenseId}/`, {
+                method: 'DELETE',
+                headers: {
+                    'X-CSRFToken': '{{ csrf_token }}'
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    // Remove the deleted expense from the DOM
+                    document.getElementById('expense_' + expenseId).remove();
+                } else {
+                    console.error('Failed to delete expense:', data.error);
+                }
+            })
+            .catch(error => console.error('Error deleting expense:', error));
+        }
+    }
+</script>
+
 {% endblock %}

@@ -8,8 +8,24 @@ document.addEventListener('DOMContentLoaded', function() {
         recognition.start();
     });
 
+    document.getElementById('resetFields').addEventListener('click', function() {
+        // Reset amount field
+        var amountField = document.getElementById('amount');
+        if (amountField) {
+            amountField.value = '';
+        }
+        // Reset description field
+        var descriptionField = document.getElementById('description');
+        if (descriptionField) {
+            descriptionField.value = '';
+        }
+    });
+
     recognition.onresult = function(event) {
         var transcript = event.results[0][0].transcript;
+
+        // Remove commas from the transcript
+        transcript = transcript.replace(/,/g, '');
 
         // Regular expression to match numbers in the transcript
         var amountMatch = transcript.match(/\d+(\.\d+)?/);
@@ -33,7 +49,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
 
         // Submit the form
-        document.getElementById('addIncomeViaSpeechForm').submit();
+        document.getElementById('forms').submit();
     };
 
     recognition.onerror = function(event) {

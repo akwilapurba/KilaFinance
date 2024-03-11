@@ -10,29 +10,30 @@ document.addEventListener('DOMContentLoaded', function() {
 
     recognition.onresult = function(event) {
         var transcript = event.results[0][0].transcript;
+
+        // Regular expression to match numbers in the transcript
+        var amountMatch = transcript.match(/\d+(\.\d+)?/);
+        var amount = parseFloat(amountMatch[0]);
+
+        // Fill the amount field with speech recognition result
         var amountField = document.getElementById('amount');
-        var descriptionField = document.getElementById('description');
-        // Debug statements to check if form fields are found
-        console.log("Amount Field:", amountField);
-        console.log("Description Field:", descriptionField);
-
-
-        // Split transcript into amount and description
-        var parts = transcript.split(' ');
-        var amount = parseFloat(parts[2]);
-        var description = parts.slice(3).join(' ');
-
-        // Fill the form fields with speech recognition results
-        if (amountField && descriptionField) {
+        if (amountField) {
             amountField.value = amount.toFixed(2);
-            descriptionField.value = description;
-
-            // Submit the form
-            document.getElementById('forms').submit();
         } else {
-            console.log("Form fields not found");
+            console.log("Amount Field not found");
         }
-        
+
+        // Extracting description from transcript
+        var description = transcript.replace(amountMatch[0], '').trim();
+        var descriptionField = document.getElementById('description');
+        if (descriptionField) {
+            descriptionField.value = description;
+        } else {
+            console.log("Description Field not found");
+        }
+
+        // Submit the form
+        document.getElementById('addIncomeViaSpeechForm').submit();
     };
 
     recognition.onerror = function(event) {
